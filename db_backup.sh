@@ -47,9 +47,9 @@ if [ -n "$MARIADB_USER" ] && [ -n "$MARIADB_PASS" ] && [ -n "$MARIADB_SERVER" ] 
         backupDest=$DB_BACKUP_ROOT/mariadb/${dateStr}
         mkdir -p $backupDest
         echo "... MariaDB backup to ${backupDest}"
-        mariadb-dump -u $MARIADB_USER --password=$MARIADB_PASS -h $MARIADB_SERVER --all-databases 2>${backupDest}.log | gzip > $backupDest/db.sql.gz
+        mariadb-dump -u $MARIADB_USER --password=$MARIADB_PASS -h $MARIADB_SERVER --all-databases --skip-lock-tables 2>${backupDest}.log | gzip > $backupDest/db.sql.gz
         backupRc=$?
-
+∏
         if [[ $backupRc == 0 ]]; then
             echo "... MariaDB backup successful, rotating backups"
 
